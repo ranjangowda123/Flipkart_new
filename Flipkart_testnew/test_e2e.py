@@ -11,3 +11,4 @@ def test_login(page: Page):  # because i need Page object so am importing and se
         home.click_on_the_product()
     new_page = new_page.value
     new_page.locator("//span[text()='WISHLIST']").click()
+# new line
