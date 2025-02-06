@@ -25,3 +25,28 @@ def test_wright(page):  # When you write test_wright(page), pytest automatically
 
 
 
+# So once after test is completed github and cicd using jenkins
+# create one repo in github
+# git init   - is used to initialize a new Git repository in your project directory
+# In test files, add .gitignore file - and add the files which are not required to github repo ( .env files are * )
+# git log - to check we have any commits
+# git status - if we commit somthing to check   ( it will show untracked files )
+# git add . - to add all the files
+# git add filename - add only particular file
+# git commit -m "new project"  - give any messsage saying what changes have done here
+# verify using git log
+# git remote -v - check whether any repo is initialized
+# git remote add origin https://github.com/ranjangowda123/Flipkart_new.git
+# verify using git remote -v
+# git push
+# git push --set-upstream origin master
+# git checkout -b feature/jenkins - create new branch
+# push to new branch -  git push --set-upstream origin feature/jenkins
+# git diff - to see what arr the changes done
+# then again add to new branch git add .
+# then commit, push
+# Then if there are multiple branches if we need to push our updated changes from one branch to another
+# Pull request from github page----processs
+# Then again we need to do in cmd---that code is merged
+# git checkout oldbranch name
+# git pull
