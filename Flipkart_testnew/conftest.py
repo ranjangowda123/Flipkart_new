@@ -111,3 +111,6 @@ def test_wright(page):  # When you write test_wright(page), pytest automatically
 # Save the Job:
 # Click Save once you've finished configuring your Jenkins job.
 
+# git is required
+
+
