@@ -112,6 +112,6 @@ def test_wright(page):  # When you write test_wright(page), pytest automatically
 # Click Save once you've finished configuring your Jenkins job.
 
 # git is required
-
-
+# give the path of the git----tools--Git installations---Path to Git executable----C:\Users\VMRanjan\AppData\Local\Programs\Git\bin\git.exe
+#
 
