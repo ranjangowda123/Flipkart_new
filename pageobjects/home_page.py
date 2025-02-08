@@ -11,7 +11,7 @@ class HomePage:
 
 
     def enter_into_search_field(self):
-        self.page.get_by_placeholder(self.search_field).fill("men jackets")
+        self.page.get_by_placeholder(self.search_field).fill("men jackets",timeout=400000)
 
     def click_on_search_button(self):
         self.page.locator(self.search_button).click()
