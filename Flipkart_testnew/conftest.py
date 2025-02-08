@@ -1,5 +1,8 @@
+import os
+
+import allure
 import pytest
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright,Page
 
 #Using a Custom Command-Line Argument to Select the Browser
 def pytest_addoption(parser):
@@ -117,3 +120,76 @@ def test_wright(page):  # When you write test_wright(page), pytest automatically
 
 
 
+
+# .........Allure___reprt
+#  allure report dependencies----
+#  pip install pytest-playwright
+#  pip install allure-pytest
+#  install latest allure from github page  - https://github.com/allure-framework/allure2/releases
+#  extract---till bin add to the path
+#  pytest --alluredir=allure-report  ( can change folder name )
+# allure serve allure_report  ( to see report in local browser )
+#
+import os
+import shutil
+@pytest.hookimpl(tryfirst=True)
+def pytest_sessionstart(session):
+    # Define the allure-results directory
+    allure_dir = os.path.join(os.getcwd(), 'allure_report')
+    # Check if the directory exists, if not create it
+    if not os.path.exists(allure_dir):
+        os.makedirs(allure_dir)  # Create the directory if it doesn't exist
+    # If the directory exists, remove only the files inside the folder, not the folder itself
+    if os.path.exists(allure_dir):
+        for filename in os.listdir(allure_dir):
+            file_path = os.path.join(allure_dir, filename)
+            if os.path.isfile(file_path):
+                os.remove(file_path)
+
+# ..........Capture screenshots and upload in allur report
+@pytest.hookimpl(hookwrapper=True)
+def pytest_runtest_makereport(item):
+    """
+    Extends the PyTest Plugin to take and embed screenshot in Allure report on failure.
+    """
+    outcome = yield
+    report = outcome.get_result()
+
+    if report.when == 'call':  # Only after the test itself has run
+        xfail = hasattr(report, 'wasxfail')
+        if (report.skipped and xfail) or (report.failed and not xfail):
+            try:
+                # Access the page fixture from item._request
+                page: Page = item._request.getfixturevalue('page')
+
+                # Generate screenshot file name
+                file_name = report.nodeid.replace("::", "_") + ".png"
+
+                # Ensure the file path is correct
+                screenshot_path = os.path.join(os.getcwd(), "test_failure_screenshots", file_name)
+
+                # Capture screenshot using Playwright's page.screenshot method
+                _capture_screenshot(page, screenshot_path)
+
+                # Attach screenshot to the Allure report
+                with open(screenshot_path, "rb") as f:
+                    allure.attach(f.read(), name="Failure Screenshot", attachment_type=allure.attachment_type.PNG)
+
+            except Exception as e:
+                print(f"Error capturing screenshot: {e}")
+
+def _capture_screenshot(page: Page, name: str):
+    """Capture a screenshot with Playwright and save it to the specified file."""
+    screenshots_dir = os.path.dirname(name)
+    if not os.path.exists(screenshots_dir):
+        os.makedirs(screenshots_dir)
+
+    # Capture the screenshot and save it to the file
+    page.screenshot(path=name)
+    print(f"Screenshot saved at {name}")
+
+
+
+# ......................Using GITHUB ACTIONS__________________
+# Step_By_Step
+#  .github-----workflows----test.yml file   ( create under main project name )
