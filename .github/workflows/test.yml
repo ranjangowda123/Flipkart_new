@@ -155,7 +155,7 @@ jobs:
       - name: Run Tests with Allure results and Test coverage
         continue-on-error: true
         run: |
-          pytest --alluredir=allure_report --maxfail=1 --disable-warnings --browser=chromium --cov=Flipkart_testnew --cov-report=xml --cov-report=term
+          pytest --alluredir=allure-results --maxfail=1 --disable-warnings --browser=chromium --cov=Flipkart_testnew --cov-report=xml --cov-report=term
 
       - name: Generate Allure Report for Chromium
         run: |
@@ -163,12 +163,22 @@ jobs:
 
       - name: Merge Allure Reports into One
         run: |
+          # Ensure allure_report directory exists
           if (-not (Test-Path -Path "allure_report")) {
             mkdir allure_report
           } else {
             Write-Host "Directory allure_report already exists."
           }
-          xcopy /e /i /Y allure_report-chromium\* allure_report\
+          
+          # Check if allure_report-chromium directory exists
+          if (Test-Path "allure_report-chromium") {
+            # If it exists, copy the files to allure_report
+            xcopy /e /i /Y allure_report-chromium\* allure_report\
+          } else {
+            # Log an error if the directory doesn't exist
+            Write-Host "Directory allure_report-chromium not found!"
+            exit 1
+          }
 
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
