@@ -159,7 +159,7 @@ jobs:
 
       - name: Generate Allure Report for Chromium
         run: |
-          & "C:\allure\allure-2.32.2\bin\allure.bat" generate allure-results --clean -o allure_report-chromium
+          & "C:\allure\allure-2.32.2\bin\allure.bat" generate allure_report --clean -o allure_report-chromium
 
       - name: Merge Allure Reports into One
         run: |
