@@ -174,3 +174,4 @@ jobs:
            publish_branch: gh-pages  # Pushes to the 'gh-pages' branch
            allow_empty_commit: true  # Allows empty commits, useful for initial deployments
            keep_files: false  # Removes all files in the gh-pages branch before pushing new content
+
