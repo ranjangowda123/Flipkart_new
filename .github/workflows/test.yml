@@ -155,7 +155,7 @@ jobs:
       - name: Run Tests with Allure results and Test coverage
         continue-on-error: true
         run: |
-          pytest --alluredir=allure-results --maxfail=1 --disable-warnings --browser=chromium --cov=Signedly --cov-report=xml --cov-report=term
+          pytest --alluredir=allure_report --maxfail=1 --disable-warnings --browser=chromium --cov=Flipkart_testnew --cov-report=xml --cov-report=term
 
       - name: Generate Allure Report for Chromium
         run: |
