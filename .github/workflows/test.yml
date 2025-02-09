@@ -169,7 +169,7 @@ jobs:
       - name: Deploy Allure Report to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-           publish_dir: allure-report # This points to the 'allure-report' folder at the root level
+           publish_dir: allure_report # This points to the 'allure-report' folder at the root level
            github_token: ${{ secrets.GH_TOKEN }}  # Uses GitHub token for authentication
            publish_branch: gh-pages  # Pushes to the 'gh-pages' branch
            allow_empty_commit: true  # Allows empty commits, useful for initial deployments
