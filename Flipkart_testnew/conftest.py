@@ -190,6 +190,16 @@ def _capture_screenshot(page: Page, name: str):
 
 
 
-# ......................Using GITHUB ACTIONS__________________
+
+# ......................Using GITHUB ACTIONS  ( Artifact report generation )__________________
 # Step_By_Step
 #  .github-----workflows----test.yml file   ( create under main project name )
+#  add test.yml file using allure report using github artifact
+# run the test once test is completed
+# go to the test and download the artifact i zip file
+# extract it -- C:\Users\VMRanjan\Downloads\allure-report ----opne this in cmd
+# then run this -- python -m http.server 8000
+# then run this -- http://localhost:8000/index.html
+
+#.................using github pages.....................
+#
