@@ -159,11 +159,15 @@ jobs:
 
       - name: Generate Allure Report for Chromium
         run: |
-          & "C:\allure\allure-2.32.2\bin\allure.bat" generate allure_report --clean -o allure_report-chromium
+          & "C:\allure\allure-2.32.2\bin\allure.bat" generate allure-results --clean -o allure_report-chromium
 
       - name: Merge Allure Reports into One
         run: |
-          mkdir allure_report
+          if (-not (Test-Path -Path "allure_report")) {
+            mkdir allure_report
+          } else {
+            Write-Host "Directory allure_report already exists."
+          }
           xcopy /e /i /Y allure_report-chromium\* allure_report\
 
       - name: Deploy Allure Report to GitHub Pages
