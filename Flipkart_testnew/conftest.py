@@ -13,6 +13,7 @@ def pytest_addoption(parser):
 # @pytest.fixture(params=['chromium','firefox'])    # for browser run using fixture
 def page(request):
     browser_type = request.config.getoption("browser_name")       #Using a Custom Command-Line Argument to Select the Browser
+    allure.dynamic.label('browser', browser_type)
     with sync_playwright() as playwright:
         # browser_type = request.param  # for browser run using fixture
         browser = getattr(playwright, browser_type).launch(headless=False, slow_mo=400)   # for browser run using fixture and Custom Command-Line Argument
@@ -53,6 +54,7 @@ def test_wright(page):  # When you write test_wright(page), pytest automatically
 # Then again we need to do in cmd---that code is merged
 # git checkout oldbranch name
 # git pull
+# >git commit --allow-empty -m "trigger"   - to run empty push
 
 
 # Integrate it to jenkins
