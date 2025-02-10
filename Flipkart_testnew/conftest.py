@@ -202,4 +202,7 @@ def _capture_screenshot(page: Page, name: str):
 # then run this -- http://localhost:8000/index.html
 
 #.................using github pages.....................
-#
+# create onf gh-pages branch separate or create one branch from active branch
+# under settings--pages----source---select gh-pages and save
+# generate token and give first 3 options (checkbox)  - repo-workflow-write packages
+# and secrets -- repo secrets --- add tocken there
